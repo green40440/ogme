@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Puncher 3.0 — Multiverse & Grand Master Edition</title>
+  <meta name="description" content="Cookie Puncher 3.0 — The ultimate idle clicker with 25 dynamic skins, boss battles, spellbook grimoire, pets, garden mutations, stock market, and alchemy!" />
+  
+  <!-- External Google Fonts & Tailwind CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --bg1: #0b1020; --bg2: #151a30;
+      --accent1: #fbbf24; --accent2: #d97706;
+      --muted: #94a3b8;
+      --glass: rgba(18, 24, 38, 0.82);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --cookie-color: radial-gradient(circle at 35% 35%, #fde047, #d97706 65%, #78350f 100%);
+      --cookie-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      --site-glow: rgba(251, 191, 36, 0.45);
+    }
+
+    /* Dynamic Skin Definitions */
+    body.skin-Midnight {
+      --bg1: #0f172a; --bg2: #1e293b; --accent1: #38bdf8; --accent2: #0284c7; --muted: #94a3b8;
+      --cookie-color: radial-gradient(circle at 35% 35%, #e0f2fe, #38bdf8 65%, #0369a1 100%);
+      --site-glow: rgba(56, 189, 248, 0.4);
+    }
+    body.skin-Lava {
+      --bg1: #180505; --bg2: #380808; --accent1: #ff4500; --accent2: #ff8c00; --muted: #fca5a5;
+      --cookie-color: radial-gradient(circle at 35% 35%, #fef08a, #ff4500 65%, #7f1d1d 100%);
+      --site-glow: rgba(255, 69, 0, 0.5);
+    }
+    body.skin-Vaporwave {
+      --bg1: #2b0e4d; --bg2: #411b65; --accent1: #ff00ff; --accent2: #00ffff; --muted: #f4b4b4;
+      --cookie-color: radial-gradient(circle at 35% 35%, #00ffff, #ff00ff 65%, #4c1d95 100%);
+      --site-glow: rgba(255, 0, 255, 0.6);
+    }
+    body.skin-LaserGrid {
+      --bg1: #000000; --bg2: #0a001a; --accent1: #ff33ff; --accent2: #33ffff; --muted: #39ff14;
+      --cookie-color: linear-gradient(45deg, #ff33ff, #33ffff);
+      --site-glow: rgba(255, 51, 255, 0.7);
+    }
+    body.skin-Hacker {
+      --bg1: #000000; --bg2: #001a00; --accent1: #00ff00; --accent2: #33ff33; --muted: #00aa00;
+      --cookie-color: radial-gradient(circle at 35% 35%, #bbf7d0, #22c55e 65%, #14532d 100%);
+      --site-glow: rgba(0, 255, 0, 0.5);
+    }
+    body.skin-ToxicWaste {
+      --bg1: #000d00; --bg2: #002500; --accent1: #ccff00; --accent2: #ff8c00; --muted: #fef08a;
+      --cookie-color: radial-gradient(circle at 35% 35%, #bef264, #65a30d 65%, #1a2e05 100%);
+      --site-glow: rgba(204, 255, 0, 0.6);
+    }
+    body.skin-Candy {
+      --bg1: #4a1525; --bg2: #701a35; --accent1: #f472b6; --accent2: #fb7185; --muted: #fbcfe8;
+      --cookie-color: radial-gradient(circle at 35% 35%, #fce7f3, #f472b6 65%, #9d174d 100%);
+      --site-glow: rgba(244, 114, 182, 0.5);
+    }
+    body.skin-SubZero {
+      --bg1: #001a33; --bg2: #003366; --accent1: #0ff0fc; --accent2: #7fffd4; --muted: #e0ffff;
+      --cookie-color: radial-gradient(circle at 35% 35%, #ffffff, #67e8f9 65%, #0e7490 100%);
+      --site-glow: rgba(15, 240, 252, 0.6);
+    }
+    body.skin-Firestorm {
+      --bg1: #1a0000; --bg2: #330000; --accent1: #ff4500; --accent2: #ffea00; --muted: #fef08a;
+      --cookie-color: radial-gradient(circle at 35% 35%, #ffea00, #ff4500 65%, #7f1d1d 100%);
+      --site-glow: rgba(255, 69, 0, 0.7);
+    }
+    body.skin-Glitch {
+      --bg1: #050505; --bg2: #121212; --accent1: #ef4444; --accent2: #06b6d4; --muted: #e2e8f0;
+      --cookie-color: linear-gradient(135deg, #ef4444 0%, #06b6d4 100%);
+      --site-glow: rgba(6, 182, 212, 0.6);
+    }
+    body.skin-Gold {
+      --bg1: #1c1917; --bg2: #292524; --accent1: #fde047; --accent2: #eab308; --muted: #fef08a;
+      --cookie-color: radial-gradient(circle at 35% 35%, #fef08a, #eab308 65%, #713f12 100%);
+      --site-glow: rgba(254, 224, 71, 0.6);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 50% 10%, var(--bg2) 0%, var(--bg1) 100%);
+      color: #f8fafc;
+      min-height: 100vh;
+      overflow-x: hidden;
+      user-select: none;
+      transition: background 0.5s ease;
+    }
+
+    h1, h2, h3, h4, .font-heading { font-family: 'Fredoka', cursive, sans-serif; }
+    .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+
+    #bgCanvas, #crumbCanvas {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0;
+    }
+    #crumbCanvas { z-index: 99; }
+
+    .glass-panel {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .cookie-wrapper {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .cookie-aura {
+      position: absolute; width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, var(--site-glow) 0%, transparent 70%);
+      animation: pulseAura 2.5s infinite alternate ease-in-out; pointer-events: none;
+    }
+    @keyframes pulseAura {
+      0% { transform: scale(0.9); opacity: 0.4; }
+      100% { transform: scale(1.3); opacity: 0.95; }
+    }
+
+    #cookieBtn {
+      width: 240px; height: 240px; border-radius: 50%; border: none;
+      background: var(--cookie-color); font-size: 7rem; cursor: pointer;
+      position: relative; z-index: 10; display: flex; align-items: center; justify-content: center;
+      box-shadow: var(--cookie-shadow), inset 0 -12px 20px rgba(0,0,0,0.5), inset 0 12px 20px rgba(255,255,255,0.6);
+      transition: transform 0.05s ease, filter 0.15s ease; outline: none;
+    }
+    #cookieBtn:hover { transform: scale(1.05); filter: brightness(1.1); }
+    #cookieBtn:active { transform: scale(0.88) rotate(-4deg); filter: brightness(0.92); }
+
+    .glove-overlay {
+      position: absolute; bottom: -10px; right: 15px; font-size: 3.5rem; pointer-events: none;
+      z-index: 12; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.8));
+      animation: floatGlove 2s ease-in-out infinite alternate;
+    }
+    @keyframes floatGlove {
+      from { transform: translateY(0) rotate(-5deg); }
+      to { transform: translateY(-8px) rotate(5deg); }
+    }
+
+    .combo-ring-container {
+      position: absolute; width: 290px; height: 290px; pointer-events: none; z-index: 5;
+    }
+    .combo-ring-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .combo-ring-bg { stroke: rgba(255, 255, 255, 0.08); stroke-width: 10; fill: none; }
+    .combo-ring-fill {
+      stroke: url(#comboGradient); stroke-width: 10; fill: none;
+      stroke-dasharray: 879; stroke-dashoffset: 879; stroke-linecap: round;
+      transition: stroke-dashoffset 0.08s linear;
+    }
+
+    .particle-text {
+      position: absolute; pointer-events: none; font-family: 'Fredoka', cursive; font-weight: 700;
+      animation: floatParticle 0.85s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; z-index: 100;
+    }
+    .crit-text {
+      font-size: 1.8rem !important; color: #ef4444 !important;
+      text-shadow: 0 0 15px #f87171, 0 0 30px #dc2626 !important;
+    }
+    @keyframes floatParticle {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.7) translateY(0); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.3) translateY(-40px); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9) translateY(-85px); }
+    }
+
+    .golden-cookie-spawn {
+      position: fixed; font-size: 3.5rem; cursor: pointer; z-index: 1000; user-select: none;
+      filter: drop-shadow(0 0 20px #fbbf24); animation: floatGolden 1.2s ease-in-out infinite alternate;
+      transition: transform 0.2s ease;
+    }
+    .golden-cookie-spawn:hover { transform: scale(1.25) rotate(12deg); }
+    @keyframes floatGolden {
+      from { transform: translateY(0) rotate(-8deg); }
+      to { transform: translateY(-15px) rotate(8deg); }
+    }
+
+    .tab-btn {
+      transition: all 0.2s ease; border-radius: 14px; font-weight: 600; font-size: 0.82rem;
+      color: #94a3b8; white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #0f172a; box-shadow: 0 4px 20px var(--site-glow);
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.35); }
+
+    .garden-tile {
+      aspect-ratio: 1; background: rgba(15, 23, 42, 0.7); border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.2s ease;
+    }
+    .garden-tile:hover { border-color: var(--accent1); background: rgba(245, 158, 11, 0.12); }
+
+    .equipped-pet-badge {
+      position: absolute; z-index: 15; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; pointer-events: auto; cursor: pointer; transition: transform 0.2s ease;
+      animation: petFloat 3s ease-in-out infinite alternate;
+    }
+    .equipped-pet-badge:hover { transform: scale(1.3); filter: drop-shadow(0 0 12px var(--accent1)); }
+    .equipped-pet-icon { font-size: 2.5rem; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)); }
+    .equipped-pet-lvl {
+      font-size: 0.65rem; font-weight: 700; background: rgba(15, 23, 42, 0.95); color: var(--accent1);
+      border: 1px solid var(--accent1); padding: 1px 7px; border-radius: 9999px; margin-top: -6px;
+    }
+    @keyframes petFloat {
+      0% { transform: translateY(0px) rotate(-4deg); }
+      100% { transform: translateY(-8px) rotate(4deg); }
+    }
+  </style>
+</head>
+<body class="relative min-h-screen text-slate-100 flex flex-col justify-between">
+
+  <canvas id="bgCanvas"></canvas>
+  <canvas id="crumbCanvas"></canvas>
+
+  <div class="relative z-10 max-w-7xl mx-auto w-full p-3 sm:p-5 flex flex-col gap-4">
+    
+    <!-- Top Global Header Bar -->
+    <header class="glass-panel p-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-amber-700 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30 font-bold p-2" id="brandLogo">
+          🍪
+        </div>
+        <div>
+          <h1 class="text-2xl md:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 tracking-tight">
+            Cookie Puncher 3.0
+          </h1>
+          <p class="text-xs text-slate-400 font-semibold tracking-wide">Multiverse & Grand Master Edition</p>
+        </div>
+      </div>
+
+      <!-- Currency Counters -->
+      <div class="flex items-center gap-4 sm:gap-6 bg-slate-900/80 border border-slate-700/60 px-4 py-2 rounded-2xl flex-wrap">
+        <div class="flex items-center gap-2" title="Mana regenerates over time and is used for Spells!">
+          <span class="text-xl">🔮</span>
+          <div>
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Mana</div>
+            <div class="text-xs font-bold text-cyan-400 font-mono-num"><span id="manaCount">100</span> / <span id="maxManaCount">100</span></div>
+          </div>
+        </div>
+        <div class="h-6 w-[1px] bg-slate-700/80"></div>
+        <div class="flex items-center gap-2" title="Sugar Lumps mature passively for Building Upgrades!">
+          <span class="text-xl">🪵</span>
+          <div>
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Sugar Lumps</div>
+            <div id="sugarLumpCount" class="text-xs font-bold text-amber-300 font-mono-num">0</div>
+          </div>
+        </div>
+        <div class="h-6 w-[1px] bg-slate-700/80"></div>
+        <div class="flex items-center gap-2" title="Heavenly Flour provides passive CPS boost after Ascension!">
+          <span class="text-xl">✨</span>
+          <div>
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Flour</div>
+            <div id="heavenlyFlourCount" class="text-xs font-bold text-purple-300 font-mono-num">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio & System Controls -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <button id="bgmToggleBtn" class="bg-slate-800/80 hover:bg-slate-700 text-xs px-3 py-2 rounded-xl font-semibold border border-slate-700 transition flex items-center gap-1.5">
+          <span>🎵</span> <span id="bgmLabel">BGM: Off</span>
+        </button>
+        <div class="flex items-center gap-1 bg-slate-800/80 px-2.5 py-1.5 rounded-xl border border-slate-700 text-xs">
+          <span>🔊</span>
+          <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.7" class="w-16 accent-amber-500 cursor-pointer">
+        </div>
+        <button id="saveBtn" class="bg-slate-800/80 hover:bg-slate-700 text-xs px-3 py-2 rounded-xl font-semibold border border-slate-700 transition">💾 Save</button>
+        <button id="resetBtn" class="bg-rose-950/50 hover:bg-rose-900/70 text-rose-300 text-xs px-3 py-2 rounded-xl font-semibold border border-rose-800/50 transition">🔄 Reset</button>
+      </div>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+
+      <!-- Left Column: Cookie Punching Stage & Boss Area (5 Cols) -->
+      <section class="lg:col-span-5 glass-panel p-6 flex flex-col items-center justify-between min-h-[660px] relative overflow-hidden">
+        
+        <!-- Active Buff Timers HUD -->
+        <div id="buffContainer" class="w-full flex flex-wrap gap-2 justify-center min-h-[30px] z-20"></div>
+
+        <!-- Boss Battle Overlay -->
+        <div id="bossSection" class="w-full bg-gradient-to-r from-rose-950/90 to-purple-950/90 border-2 border-rose-500 p-3 rounded-2xl hidden flex-col items-center gap-2 z-20 animate-bounce shadow-lg shadow-rose-900/50">
+          <div class="flex justify-between w-full text-xs font-bold text-rose-200">
+            <span id="bossName">👹 CRUMB OVERLORD</span>
+            <span id="bossTimer" class="font-mono-num text-amber-300">20s</span>
+          </div>
+          <div class="w-full bg-slate-950/80 h-3.5 rounded-full overflow-hidden border border-rose-500/50 p-0.5">
+            <div id="bossHpBar" class="h-full bg-gradient-to-r from-rose-600 via-amber-500 to-emerald-400 rounded-full transition-all duration-100 w-full"></div>
+          </div>
+          <div class="text-[10px] text-rose-300 font-semibold uppercase tracking-wider">Punch the cookie rapidly to defeat the boss!</div>
+        </div>
+
+        <!-- Cookie Score Display -->
+        <div class="text-center mt-2 z-10">
+          <div id="cookieScore" class="text-3xl sm:text-4xl font-extrabold text-amber-400 drop-shadow-lg font-heading">
+            0 Cookies
+          </div>
+          <div class="flex items-center justify-center gap-3 mt-1.5">
+            <span id="cpsScore" class="text-xs font-semibold text-slate-300">per second: 0</span>
+            <span id="clickPowerScore" class="text-xs bg-slate-800/90 text-amber-300 px-3 py-0.5 rounded-full border border-slate-700/80 font-mono-num">
+              Per click: 1
+            </span>
+          </div>
+        </div>
+
+        <!-- Cookie & Glove Centerpiece -->
+        <div class="cookie-wrapper my-5">
+          <div class="cookie-aura"></div>
+
+          <!-- Circular Combo Ring -->
+          <div class="combo-ring-container">
+            <svg class="combo-ring-svg" viewBox="0 0 300 300">
+              <defs>
+                <linearGradient id="comboGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#f59e0b" />
+                  <stop offset="50%" stop-color="#ec4899" />
+                  <stop offset="100%" stop-color="#3b82f6" />
+                </linearGradient>
+              </defs>
+              <circle class="combo-ring-bg" cx="150" cy="150" r="140"></circle>
+              <circle id="comboRingFill" class="combo-ring-fill" cx="150" cy="150" r="140"></circle>
+            </svg>
+          </div>
+
+          <!-- Floating Equipped Pets Container -->
+          <div id="equippedPetsContainer" class="absolute inset-0 pointer-events-none z-20"></div>
+
+          <!-- Main Interactive Cookie -->
+          <button id="cookieBtn" aria-label="Punch Cookie">🍪</button>
+
+          <!-- Glove Overlay -->
+          <div id="gloveOverlay" class="glove-overlay">🥊</div>
+        </div>
+
+        <!-- Combo Gauge -->
+        <div class="w-full max-w-xs text-center space-y-1 z-10">
+          <div class="flex justify-between text-xs font-bold text-slate-300 px-1">
+            <span>Punch Combo</span>
+            <span id="comboMultiplierText" class="text-amber-400 font-extrabold font-mono-num">1.0x</span>
+          </div>
+          <div class="w-full bg-slate-900/90 h-3 rounded-full overflow-hidden border border-slate-700/80 p-0.5">
+            <div id="comboBar" class="h-full bg-gradient-to-r from-amber-400 via-pink-500 to-purple-500 rounded-full transition-all duration-75 w-0"></div>
+          </div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-4 w-full z-10">
+          <button id="autoPunchBtn" class="bg-slate-800/90 hover:bg-slate-700 text-xs px-3.5 py-2 rounded-xl border border-slate-700 font-bold transition flex items-center gap-1.5">
+            <span>🤖</span> <span id="autoPunchLabel">Auto-Punch: OFF</span>
+          </button>
+          <button id="exportSaveBtn" class="bg-slate-800/90 hover:bg-slate-700 text-xs px-3 py-2 rounded-xl border border-slate-700 font-bold transition">📋 Export</button>
+          <button id="importSaveBtn" class="bg-slate-800/90 hover:bg-slate-700 text-xs px-3 py-2 rounded-xl border border-slate-700 font-bold transition">📥 Import</button>
+        </div>
+      </section>
+
+      <section class="lg:col-span-7 glass-panel p-5 flex flex-col min-h-[660px]">
+
+        <!-- Tab Header Bar -->
+        <nav class="flex items-center gap-1.5 border-b border-slate-700/60 pb-3 mb-4 overflow-x-auto scrollbar-thin">
+          <button class="tab-btn px-3 py-2 active" data-tab="tab-buildings">🛒 Shop</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-upgrades">⚡ Upgrades</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-skins">🎨 Skins (25)</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-grimoire">🔮 Grimoire</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-pets">🐾 Pets</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-garden">🌾 Garden</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-market">📈 Market</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-alchemy">🧪 Alchemy</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-gloves">🥊 Gloves</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-ascension">✨ Ascension</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-badges">🏆 Badges</button>
+          <button class="tab-btn px-3 py-2" data-tab="tab-stats">📊 Stats</button>
+        </nav>
+
+        <div class="flex-1 overflow-y-auto max-h-[530px] pr-1">
+
+          <!-- TAB 1: SHOP BUILDINGS -->
+          <div id="tab-buildings" class="tab-content block space-y-3">
+            <div class="text-xs text-slate-400 mb-2">Automate your cookie empire! Upgrade buildings with Sugar Lumps 🪵 to boost multiplier output!</div>
+            <div id="buildingsList" class="space-y-2.5"></div>
+          </div>
+
+          <!-- TAB 2: UPGRADES -->
+          <div id="tab-upgrades" class="tab-content hidden">
+            <div id="upgradesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- TAB 3: SKINS SELECTOR -->
+          <div id="tab-skins" class="tab-content hidden space-y-4">
+            <div class="bg-indigo-950/30 border border-indigo-800/40 p-4 rounded-2xl">
+              <h3 class="text-base font-bold text-indigo-300 flex items-center gap-2">
+                <span>🎨</span> Dynamic Theme Bakery Skins
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Transform your bakery's visual palette, aura glows, and cookie styles with 25 custom skins!</p>
+            </div>
+            <div id="skinsSelectorGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5"></div>
+          </div>
+
+          <!-- TAB 4: GRIMOIRE SPELLBOOK -->
+          <div id="tab-grimoire" class="tab-content hidden space-y-4">
+            <div class="bg-cyan-950/40 border border-cyan-800/50 p-4 rounded-2xl flex justify-between items-center">
+              <div>
+                <h3 class="text-base font-bold text-cyan-300 flex items-center gap-2">
+                  <span>🔮</span> Archmage Grimoire
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">Cast mana spells to trigger golden cookie frenzies and temporal multipliers!</p>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-400 font-semibold">Regen Speed</div>
+                <div class="text-sm font-bold text-cyan-400">+1 Mana / 3s</div>
+              </div>
+            </div>
+            <div id="spellsGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- TAB 5: PETS & HATCHERY -->
+          <div id="tab-pets" class="tab-content hidden space-y-4">
+            <div class="bg-amber-950/30 border border-amber-800/40 p-4 rounded-2xl">
+              <h3 class="text-base font-bold text-amber-300 flex items-center gap-2">
+                <span>🐾</span> Cookie Companions Hatchery
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Hatch and level up pets to auto-punch cookies and gather alchemy resources!</p>
+            </div>
+            <div id="petsList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- TAB 6: BOTANICAL GARDEN -->
+          <div id="tab-garden" class="tab-content hidden space-y-4">
+            <div class="bg-emerald-950/30 border border-emerald-800/40 p-4 rounded-2xl flex justify-between items-center">
+              <div>
+                <h3 class="text-base font-bold text-emerald-300 flex items-center gap-2">
+                  <span>🌾</span> Botanical Mutation Plot
+                </h3>
+                <p class="text-xs text-slate-400 mt-1">Plant crops and cross-pollinate neighbors to create mutated ingredients!</p>
+              </div>
+              <button id="harvestAllGardenBtn" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-bold px-3 py-2 rounded-xl transition">
+                ✂️ Harvest All
+              </button>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Select Seed:</label>
+              <div id="seedSelectorList" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+              <div id="gardenPlotGrid" class="grid grid-cols-3 gap-3 max-w-xs mx-auto"></div>
+            </div>
+          </div>
+
+          <!-- TAB 7: STOCK MARKET -->
+          <div id="tab-market" class="tab-content hidden space-y-4">
+            <div class="bg-emerald-950/30 border border-emerald-800/40 p-4 rounded-2xl">
+              <h3 class="text-base font-bold text-emerald-300 flex items-center gap-2">
+                <span>📈</span> Commodity Stock Exchange
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Prices fluctuate dynamically. Buy low, sell high to turn a profit!</p>
+            </div>
+            <div id="stockMarketList" class="space-y-3"></div>
+          </div>
+
+          <!-- TAB 8: ALCHEMY LAB -->
+          <div id="tab-alchemy" class="tab-content hidden space-y-4">
+            <div class="bg-purple-950/30 border border-purple-800/40 p-4 rounded-2xl">
+              <h3 class="text-base font-bold text-purple-300 flex items-center gap-2">
+                <span>🧪</span> Grandma's Alchemic Cauldron
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Combine garden crops and pet loot to brew powerful elixirs!</p>
+            </div>
+            <div class="grid grid-cols-4 gap-2">
+              <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-xl text-center">
+                <div class="text-2xl">🍫</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase mt-1">Cocoa</div>
+                <div id="ing_cocoa" class="text-sm font-bold text-amber-300 font-mono-num">0</div>
+              </div>
+              <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-xl text-center">
+                <div class="text-2xl">🧈</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase mt-1">Butter</div>
+                <div id="ing_butter" class="text-sm font-bold text-amber-300 font-mono-num">0</div>
+              </div>
+              <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-xl text-center">
+                <div class="text-2xl">✨</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase mt-1">Dust</div>
+                <div id="ing_dust" class="text-sm font-bold text-cyan-300 font-mono-num">0</div>
+              </div>
+              <div class="bg-slate-900/80 border border-slate-800 p-2.5 rounded-xl text-center">
+                <div class="text-2xl">🍬</div>
+                <div class="text-[10px] text-slate-400 font-bold uppercase mt-1">Sugar</div>
+                <div id="ing_sugar" class="text-sm font-bold text-pink-300 font-mono-num">0</div>
+              </div>
+            </div>
+            <div id="recipesList" class="space-y-2.5"></div>
+          </div>
+
+          <!-- TAB 9: PUNCH GLOVES -->
+          <div id="tab-gloves" class="tab-content hidden space-y-4">
+            <div class="bg-indigo-950/30 border border-indigo-800/40 p-4 rounded-2xl">
+              <h3 class="text-base font-bold text-indigo-300 flex items-center gap-2">
+                <span>🥊</span> Punching Glove Armory
+              </h3>
+              <p class="text-xs text-slate-400 mt-1">Equip gloves for critical punch power and visual overlays!</p>
+            </div>
+            <div id="glovesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
+          </div>
+
+          <!-- TAB 10: ASCENSION -->
+          <div id="tab-ascension" class="tab-content hidden space-y-4">
+            <div class="bg-gradient-to-r from-purple-900/40 via-indigo-900/40 to-slate-900/40 border border-purple-700/40 p-5 rounded-2xl text-center">
+              <h3 class="text-lg font-bold text-purple-200">✨ Cosmic Ascension</h3>
+              <p class="text-xs text-slate-300 mt-1 max-w-md mx-auto">
+                Reset your bakery for Heavenly Flour. Each flour provides a permanent +2% CPS boost across all runs!
+              </p>
+              <div class="flex justify-center gap-6 my-4 bg-slate-950/70 p-3 rounded-2xl border border-purple-800/30">
+                <div>
+                  <div class="text-xs text-slate-400 font-semibold">Current Flour</div>
+                  <div id="ascendCurrentFlour" class="text-lg font-extrabold text-purple-300 font-mono-num">0</div>
+                </div>
+                <div class="h-8 w-[1px] bg-slate-700"></div>
+                <div>
+                  <div class="text-xs text-slate-400 font-semibold">Earned on Reset</div>
+                  <div id="ascendPendingFlour" class="text-lg font-extrabold text-amber-400 font-mono-num">0</div>
+                </div>
+              </div>
+              <button id="ascendActionBtn" class="bg-gradient-to-r from-purple-500 to-pink-500 text-slate-950 font-extrabold px-6 py-2.5 rounded-xl shadow-lg hover:brightness-110 transition text-xs">
+                ✨ Ascend Bakery Now
+              </button>
+            </div>
+            <h4 class="text-xs font-bold text-purple-300 uppercase tracking-wider">Heavenly Constellation Tree</h4>
+            <div id="heavenlyPerksGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- TAB 11: BADGES -->
+          <div id="tab-badges" class="tab-content hidden">
+            <div id="badgesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+          </div>
+
+          <!-- TAB 12: STATS -->
+          <div id="tab-stats" class="tab-content hidden space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+                <div class="text-xs text-slate-400 font-semibold">Total Baked All Time</div>
+                <div id="statTotalEarned" class="text-base font-bold text-amber-400 font-mono-num">0</div>
+              </div>
+              <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+                <div class="text-xs text-slate-400 font-semibold">Manual Punches</div>
+                <div id="statTotalClicks" class="text-base font-bold text-amber-400 font-mono-num">0</div>
+              </div>
+              <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+                <div class="text-xs text-slate-400 font-semibold">Boss Defeats</div>
+                <div id="statBossKills" class="text-base font-bold text-rose-400 font-mono-num">0</div>
+              </div>
+              <div class="bg-slate-900/80 p-3.5 rounded-2xl border border-slate-800">
+                <div class="text-xs text-slate-400 font-semibold">Golden Cookies Caught</div>
+                <div id="statGoldenClicked" class="text-base font-bold text-amber-300 font-mono-num">0</div>
+              </div>
+            </div>
+            <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+              <h4 class="text-xs font-bold text-slate-300 uppercase mb-3">Bakery CPS Distribution</h4>
+              <div id="cpsBreakdownList" class="space-y-2.5 text-xs"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="text-center text-xs text-slate-500 py-2">
+      Cookie Puncher 3.0 • Multiverse & Grand Master Edition
+    </footer>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 flex flex-col gap-2.5 z-50 pointer-events-none max-w-sm"></div>
+
+  <!-- Modal Dialog -->
+  <div id="customModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="bg-slate-900 border border-slate-700/80 p-6 rounded-2xl max-w-md w-full shadow-2xl text-center space-y-4">
+      <h3 id="modalTitle" class="text-lg font-bold text-amber-400 font-heading">Confirm Action</h3>
+      <p id="modalBody" class="text-xs text-slate-300 leading-relaxed">Are you sure you wish to proceed?</p>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="modalCancelBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-4 py-2 rounded-xl font-bold">Cancel</button>
+        <button id="modalConfirmBtn" class="bg-rose-600 hover:bg-rose-500 text-white text-xs px-4 py-2 rounded-xl font-bold">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let audioCtx = null;
+    let soundEnabled = true;
+    let masterVolume = 0.7;
+    let bgmEnabled = false;
+    let bgmInterval = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playSound(type, pitchModifier = 1) {
+      if (!soundEnabled || masterVolume <= 0) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      const now = audioCtx.currentTime;
+      const vol = masterVolume;
+
+      if (type === 'click') {
+        osc.type = 'sine';
+        const baseFreq = 260 * pitchModifier;
+        osc.frequency.setValueAtTime(baseFreq, now);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.4, now + 0.08);
+        gain.gain.setValueAtTime(0.22 * vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else if (type === 'crit') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.15);
+        gain.gain.setValueAtTime(0.35 * vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+        osc.start(now);
+        osc.stop(now + 0.18);
+      } else if (type === 'buy') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.setValueAtTime(880, now + 0.1);
+        gain.gain.setValueAtTime(0.2 * vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      } else if (type === 'spell') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(300, now);
+        osc.frequency.exponentialRampToValueAtTime(1200, now + 0.4);
+        gain.gain.setValueAtTime(0.3 * vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+        osc.start(now);
+        osc.stop(now + 0.45);
+      } else if (type === 'bossSpawn') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(100, now);
+        osc.frequency.linearRampToValueAtTime(60, now + 0.5);
+        gain.gain.setValueAtTime(0.4 * vol, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+        osc.start(now);
+        osc.stop(now + 0.55);
+      }
+    }
+
+    function toggleBGM() {
+      bgmEnabled = !bgmEnabled;
+      document.getElementById('bgmLabel').textContent = bgmEnabled ? 'BGM: On' : 'BGM: Off';
+      if (bgmEnabled) {
+        initAudio();
+        const notes = [261.63, 293.66, 329.63, 392.00, 440.00];
+        let noteIdx = 0;
+        bgmInterval = setInterval(() => {
+          if (!bgmEnabled || masterVolume <= 0 || !audioCtx) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(notes[noteIdx % notes.length], audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.03 * masterVolume, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.4);
+          noteIdx++;
+        }, 500);
+      } else {
+        clearInterval(bgmInterval);
+      }
+    }
+
+    const bgCanvas = document.getElementById('bgCanvas');
+    const bgCtx = bgCanvas.getContext('2d');
+    const crumbCanvas = document.getElementById('crumbCanvas');
+    const crumbCtx = crumbCanvas.getContext('2d');
+
+    let bgParticles = [];
+    let crumbs = [];
+
+    function resizeCanvases() {
+      bgCanvas.width = window.innerWidth;
+      bgCanvas.height = window.innerHeight;
+      crumbCanvas.width = window.innerWidth;
+      crumbCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvases);
+    resizeCanvases();
+
+    for (let i = 0; i < 45; i++) {
+      bgParticles.push({
+        x: Math.random() * bgCanvas.width,
+        y: Math.random() * bgCanvas.height,
+        radius: Math.random() * 2 + 1,
+        speedY: Math.random() * 0.4 + 0.1,
+        alpha: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    function spawnCrumbs(x, y, isCrit = false) {
+      const count = isCrit ? 22 : 10;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * (isCrit ? 9 : 5) + 2;
+        crumbs.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 2,
+          size: Math.random() * 4 + 2,
+          color: isCrit ? '#ef4444' : '#f59e0b',
+          life: 1.0,
+          decay: Math.random() * 0.03 + 0.02
+        });
+      }
+    }
+
+    function animatePhysics() {
+      bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+      crumbCtx.clearRect(0, 0, crumbCanvas.width, crumbCanvas.height);
+
+      bgCtx.fillStyle = '#fbbf24';
+      bgParticles.forEach(p => {
+        p.y -= p.speedY;
+        if (p.y < -10) p.y = bgCanvas.height + 10;
+        bgCtx.globalAlpha = p.alpha;
+        bgCtx.beginPath();
+        bgCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        bgCtx.fill();
+      });
+
+      for (let i = crumbs.length - 1; i >= 0; i--) {
+        const c = crumbs[i];
+        c.x += c.vx;
+        c.y += c.vy;
+        c.vy += 0.25;
+        c.life -= c.decay;
+
+        if (c.life <= 0) {
+          crumbs.splice(i, 1);
+          continue;
+        }
+
+        crumbCtx.globalAlpha = c.life;
+        crumbCtx.fillStyle = c.color;
+        crumbCtx.fillRect(c.x, c.y, c.size, c.size);
+      }
+
+      requestAnimationFrame(animatePhysics);
+    }
+    animatePhysics();
+
+    const SAVE_KEY = 'cookiepuncher_3_0_save';
+
+    const SKINS_LIST = [
+      { id: 'Classic', name: 'Classic Bakery', class: '' },
+      { id: 'Midnight', name: 'Midnight Cyber', class: 'skin-Midnight' },
+      { id: 'Lava', name: 'Volcanic Lava', class: 'skin-Lava' },
+      { id: 'Vaporwave', name: 'Vaporwave Neon', class: 'skin-Vaporwave' },
+      { id: 'LaserGrid', name: 'Laser Grid', class: 'skin-LaserGrid' },
+      { id: 'Hacker', name: 'Matrix Hacker', class: 'skin-Hacker' },
+      { id: 'ToxicWaste', name: 'Toxic Waste', class: 'skin-ToxicWaste' },
+      { id: 'Candy', name: 'Cotton Candy', class: 'skin-Candy' },
+      { id: 'SubZero', name: 'Sub Zero Frost', class: 'skin-SubZero' },
+      { id: 'Firestorm', name: 'Firestorm Inferno', class: 'skin-Firestorm' },
+      { id: 'Glitch', name: 'Glitch Cyberpunk', class: 'skin-Glitch' },
+      { id: 'Gold', name: 'Pure Gold', class: 'skin-Gold' }
+    ];
+
+    const BUILDINGS = [
+      { id: 'cursor', name: 'Cursor', icon: '🖱️', baseCost: 15, baseCps: 0.2, owned: 0, level: 1 },
+      { id: 'cookie_money', name: 'Cookie Cash', icon: '💵', baseCost: 50, baseCps: 0.8, owned: 0, level: 1 },
+      { id: 'cookie_candy', name: 'Cookie Candy', icon: '🍭', baseCost: 100, baseCps: 1.5, owned: 0, level: 1 },
+      { id: 'grandma', name: 'Grandma Bakery', icon: '👵', baseCost: 200, baseCps: 4, owned: 0, level: 1 },
+      { id: 'cookie_family', name: 'Cookie Family', icon: '👨‍👩‍👦', baseCost: 400, baseCps: 8, owned: 0, level: 1 },
+      { id: 'farm', name: 'Cookie Farm', icon: '🌾', baseCost: 1100, baseCps: 16, owned: 0, level: 1 },
+      { id: 'cookie_drone', name: 'Cookie Drone', icon: '🚁', baseCost: 2500, baseCps: 32, owned: 0, level: 1 },
+      { id: 'factory', name: 'Cookie Factory', icon: '🏭', baseCost: 7500, baseCps: 80, owned: 0, level: 1 },
+      { id: 'cyclops', name: 'Cookie Cyclops', icon: '👁️', baseCost: 18000, baseCps: 180, owned: 0, level: 1 },
+      { id: 'wizard', name: 'Wizard Tower', icon: '🧙', baseCost: 45000, baseCps: 420, owned: 0, level: 1 },
+      { id: 'cookie_hero', name: 'Cookie Hero', icon: '👤', baseCost: 120000, baseCps: 1000, owned: 0, level: 1 },
+      { id: 'portal', name: 'Cosmic Portal', icon: '🚀', baseCost: 350000, baseCps: 2600, owned: 0, level: 1 },
+      { id: 'time_machine', name: 'Time Machine', icon: '⏳', baseCost: 1000000, baseCps: 7500, owned: 0, level: 1 },
+      { id: 'cookie_earth', name: 'Cookie Earth', icon: '🌎', baseCost: 5000000, baseCps: 25000, owned: 0, level: 1 },
+      { id: 'cookie_galaxy', name: 'Cookie Galaxy', icon: '🌌', baseCost: 25000000, baseCps: 90000, owned: 0, level: 1 },
+      { id: 'cookie_multiverse', name: 'Cookie Multiverse', icon: '🌌🌌', baseCost: 100000000, baseCps: 350000, owned: 0, level: 1 },
+      { id: 'black_hole', name: 'Black Hole Bakery', icon: '🕳️', baseCost: 500000000, baseCps: 1500000, owned: 0, level: 1 }
+    ];
+
+    const UPGRADES = [
+      { id: 'upg_click_1', name: 'Iron Knuckles', icon: '🥊', cost: 100, desc: 'Adds +2 base cookies to manual punch power', purchased: false, apply: () => game.clickPowerBonus += 2 },
+      { id: 'upg_click_2', name: 'Steel Gloves', icon: '🥊', cost: 1000, desc: 'Adds +10 base cookies to manual punch power', purchased: false, apply: () => game.clickPowerBonus += 10 },
+      { id: 'upg_cps_1', name: 'Golden Oven Mitts', icon: '🧤', cost: 5000, desc: 'Increases all CPS output by 15%', purchased: false, apply: () => game.globalCpsMult *= 1.15 },
+      { id: 'upg_crit_1', name: 'Precision Striker', icon: '🎯', cost: 25000, desc: 'Increases Critical Punch Chance by +5%', purchased: false, apply: () => game.critChance += 0.05 }
+    ];
+
+    const SPELLS = [
+      { id: 'frenzy', name: 'Cookie Frenzy', icon: '⚡', manaCost: 25, desc: 'Grants 7x CPS for 15 seconds', duration: 15, cast: () => game.addBuff('Frenzy', 15, 7) },
+      { id: 'mana_harvest', name: 'Mana Harvest', icon: '🌾', manaCost: 40, desc: 'Instantly yields 30 seconds of passive CPS output', cast: () => { const bonus = game.getTotalCps() * 30; game.addCookies(bonus); showToast(`Harvested ${formatNum(bonus)} cookies!`); } },
+      { id: 'golden_rain', name: 'Golden Rain', icon: '🌟', manaCost: 60, desc: 'Instantly spawns a Golden Cookie on screen', cast: () => spawnGoldenCookie() }
+    ];
+
+    const PETS = [
+      { id: 'cookie_cat', name: 'Cookie Kitty', icon: '🐱', cost: 5000, lvl: 0, equipped: false, desc: 'Auto-punches cookie every 2 seconds' },
+      { id: 'baking_pup', name: 'Baking Pup', icon: '🐶', cost: 25000, lvl: 0, equipped: false, desc: 'Increases Crit Punch Chance by +3%' },
+      { id: 'phoenix', name: 'Flour Phoenix', icon: '🐦', cost: 150000, lvl: 0, equipped: false, desc: 'Gathers random Alchemy Ingredients periodically' }
+    ];
+
+    const GLOVES = [
+      { id: 'default', name: 'Standard Gloves', icon: '🥊', cost: 0, critBonus: 0, clickMult: 1, owned: true },
+      { id: 'golden_fist', name: 'Golden Fist', icon: '🥊', cost: 50000, critBonus: 0.05, clickMult: 1.5, owned: false },
+      { id: 'cyber_knuckles', name: 'Cyber Knuckles', icon: '⚡', cost: 500000, critBonus: 0.1, clickMult: 2.2, owned: false }
+    ];
+
+    const STOCKS = [
+      { id: 'flour', name: 'Flour Futures', icon: '🌾', price: 10, history: [10, 11, 10, 12, 10], owned: 0 },
+      { id: 'sugar', name: 'Sugar Bonds', icon: '🍬', price: 25, history: [25, 24, 26, 28, 25], owned: 0 },
+      { id: 'chocolate', name: 'Cocoa Tech', icon: '🍫', price: 100, history: [100, 105, 98, 102, 100], owned: 0 }
+    ];
+
+    const RECIPES = [
+      { id: 'potion_cps', name: 'Elixir of Haste', icon: '🧪', req: { cocoa: 5, butter: 5 }, desc: 'Grants +25% CPS output for 60 seconds', craft: () => game.addBuff('Alchemy Haste', 60, 1.25) },
+      { id: 'potion_sugar', name: 'Sugar Catalyst', icon: '✨', req: { dust: 10, sugar: 10 }, desc: 'Instantly grants +1 Sugar Lump', craft: () => { game.sugarLumps++; updateUI(); showToast('+1 Sugar Lump Crafted!'); } }
+    ];
+
+    const BADGES = [
+      { id: 'clicks_100', name: 'Novice Puncher', desc: 'Perform 100 manual cookie punches', unlocked: false, check: () => game.totalClicks >= 100 },
+      { id: 'cookies_1m', name: 'Cookie Millionaire', desc: 'Earn 1,000,000 total cookies', unlocked: false, check: () => game.totalEarned >= 1000000 },
+      { id: 'boss_slayer', name: 'Overlord Slayer', desc: 'Defeat a Boss Monster in combat', unlocked: false, check: () => game.bossKills >= 1 }
+    ];
+
+    class CookiePuncherEngine {
+      constructor() {
+        this.cookies = 0;
+        this.totalEarned = 0;
+        this.totalClicks = 0;
+        this.bossKills = 0;
+        this.goldenClicked = 0;
+        
+        this.mana = 100;
+        this.maxMana = 100;
+        this.sugarLumps = 0;
+        this.heavenlyFlour = 0;
+        
+        this.clickPowerBonus = 0;
+        this.globalCpsMult = 1.0;
+        this.critChance = 0.05;
+        this.comboMult = 1.0;
+        this.comboTimer = 0;
+        this.autoPunchActive = false;
+        
+        this.activeSkin = SKINS_LIST[0];
+        this.equippedGlove = GLOVES[0];
+        this.buffs = [];
+        this.ingredients = { cocoa: 0, butter: 0, dust: 0, sugar: 0 };
+        this.garden = Array(9).fill(null);
+        this.selectedSeed = 'wheat';
+
+        this.bossActive = false;
+        this.bossHp = 100;
+        this.bossMaxHp = 100;
+        this.bossTimeLeft = 20;
+
+        this.initDOM();
+        this.loadSave();
+        this.bindEvents();
+        this.startLoop();
+      }
+
+      initDOM() {
+        this.dom = {
+          cookieScore: document.getElementById('cookieScore'),
+          cpsScore: document.getElementById('cpsScore'),
+          clickPowerScore: document.getElementById('clickPowerScore'),
+          cookieBtn: document.getElementById('cookieBtn'),
+          gloveOverlay: document.getElementById('gloveOverlay'),
+          comboBar: document.getElementById('comboBar'),
+          comboMultiplierText: document.getElementById('comboMultiplierText'),
+          comboRingFill: document.getElementById('comboRingFill'),
+          buffContainer: document.getElementById('buffContainer'),
+          manaCount: document.getElementById('manaCount'),
+          maxManaCount: document.getElementById('maxManaCount'),
+          sugarLumpCount: document.getElementById('sugarLumpCount'),
+          heavenlyFlourCount: document.getElementById('heavenlyFlourCount'),
+          buildingsList: document.getElementById('buildingsList'),
+          upgradesGrid: document.getElementById('upgradesGrid'),
+          skinsSelectorGrid: document.getElementById('skinsSelectorGrid'),
+          spellsGrid: document.getElementById('spellsGrid'),
+          petsList: document.getElementById('petsList'),
+          equippedPetsContainer: document.getElementById('equippedPetsContainer'),
+          stockMarketList: document.getElementById('stockMarketList'),
+          recipesList: document.getElementById('recipesList'),
+          glovesGrid: document.getElementById('glovesGrid'),
+          heavenlyPerksGrid: document.getElementById('heavenlyPerksGrid'),
+          badgesGrid: document.getElementById('badgesGrid'),
+          bossSection: document.getElementById('bossSection'),
+          bossName: document.getElementById('bossName'),
+          bossTimer: document.getElementById('bossTimer'),
+          bossHpBar: document.getElementById('bossHpBar'),
+          autoPunchBtn: document.getElementById('autoPunchBtn'),
+          autoPunchLabel: document.getElementById('autoPunchLabel')
+        };
+      }
+
+      getClickPower() {
+        let base = 1 + this.clickPowerBonus;
+        base *= this.equippedGlove.clickMult;
+        base *= this.comboMult;
+        this.buffs.forEach(b => { if (b.mult) base *= b.mult; });
+        return Math.floor(base);
+      }
+
+      getTotalCps() {
+        let total = BUILDINGS.reduce((sum, b) => sum + (b.owned * b.baseCps * Math.pow(1.15, b.level - 1)), 0);
+        total *= this.globalCpsMult;
+        total *= (1 + this.heavenlyFlour * 0.02);
+        this.buffs.forEach(b => { if (b.mult) total *= b.mult; });
+        return total;
+      }
+
+      addCookies(n) {
+        this.cookies += n;
+        this.totalEarned += n;
+        updateUI();
+      }
+
+      punchCookie(e) {
+        initAudio();
+        this.totalClicks++;
+        
+        let isCrit = Math.random() < this.critChance + this.equippedGlove.critBonus;
+        let power = this.getClickPower() * (isCrit ? 3.5 : 1.0);
+        
+        this.addCookies(power);
+
+        // Combo system buildup
+        this.comboTimer = 3.0;
+        this.comboMult = Math.min(3.0, this.comboMult + 0.05);
+
+        // Handle Boss Damage
+        if (this.bossActive) {
+          this.bossHp -= power;
+          if (this.bossHp <= 0) this.defeatBoss();
+        }
+
+        // Visual & Audio Feedback
+        playSound(isCrit ? 'crit' : 'click', 1.0 + Math.random() * 0.2);
+        
+        let rect = this.dom.cookieBtn.getBoundingClientRect();
+        let clickX = e ? e.clientX : rect.left + rect.width / 2;
+        let clickY = e ? e.clientY : rect.top + rect.height / 2;
+        
+        spawnCrumbs(clickX, clickY, isCrit);
+        spawnFloatingText(`+${formatNum(power)}`, clickX, clickY, isCrit);
+      }
+
+      spawnBoss() {
+        if (this.bossActive) return;
+        this.bossActive = true;
+        this.bossHp = Math.max(500, this.getTotalCps() * 25);
+        this.bossMaxHp = this.bossHp;
+        this.bossTimeLeft = 20;
+        
+        playSound('bossSpawn');
+        this.dom.bossSection.classList.remove('hidden');
+        this.dom.bossSection.classList.add('flex');
+        showToast('⚠️ A Boss Monster has invaded! Punch fast!');
+      }
+
+      defeatBoss() {
+        this.bossActive = false;
+        this.bossKills++;
+        this.dom.bossSection.classList.add('hidden');
+        this.dom.bossSection.classList.remove('flex');
+        
+        let reward = Math.max(1000, this.getTotalCps() * 60);
+        this.addCookies(reward);
+        this.sugarLumps++;
+        showToast(`🏆 Boss Defeated! Earned ${formatNum(reward)} cookies & +1 Sugar Lump!`);
+      }
+
+      addBuff(name, duration, mult) {
+        this.buffs.push({ name, duration, mult });
+        updateUI();
+      }
+
+      bindEvents() {
+        this.dom.cookieBtn.addEventListener('click', (e) => this.punchCookie(e));
+        
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.remove('hidden');
+          });
+        });
+
+        document.getElementById('autoPunchBtn').addEventListener('click', () => {
+          this.autoPunchActive = !this.autoPunchActive;
+          this.dom.autoPunchLabel.textContent = this.autoPunchActive ? 'Auto-Punch: ON' : 'Auto-Punch: OFF';
+        });
+
+        document.getElementById('bgmToggleBtn').addEventListener('click', toggleBGM);
+        document.getElementById('volumeSlider').addEventListener('input', (e) => masterVolume = parseFloat(e.target.value));
+        document.getElementById('saveBtn').addEventListener('click', () => { this.saveGame(); showToast('Game Progress Saved!'); });
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          showModal('Reset Game Progress?', 'Are you sure you want to completely erase all cookies and upgrades?', () => {
+            localStorage.removeItem(SAVE_KEY);
+            location.reload();
+          });
+        });
+
+        document.getElementById('exportSaveBtn').addEventListener('click', () => {
+          const saveStr = btoa(JSON.stringify(this.getSaveData()));
+          navigator.clipboard.writeText(saveStr);
+          showToast('Save String copied to Clipboard!');
+        });
+
+        document.getElementById('importSaveBtn').addEventListener('click', () => {
+          let code = prompt('Paste your Exported Save String:');
+          if (code) {
+            try {
+              let parsed = JSON.parse(atob(code));
+              this.loadSaveData(parsed);
+              showToast('Save Imported Successfully!');
+            } catch(err) {
+              showToast('Invalid Save String!');
+            }
+          }
+        });
+
+        document.getElementById('ascendActionBtn').addEventListener('click', () => {
+          let pending = Math.floor(Math.sqrt(this.totalEarned / 1000000));
+          if (pending <= 0) {
+            showToast('Earn at least 1,000,000 total cookies to Ascend!');
+            return;
+          }
+          showModal('Cosmic Ascension', `Ascend now to gain +${pending} Heavenly Flour? (Resets current cookies and buildings)`, () => {
+            this.heavenlyFlour += pending;
+            this.cookies = 0;
+            BUILDINGS.forEach(b => { b.owned = 0; b.level = 1; });
+            updateUI();
+            showToast('Ascended into Cosmic Glory!');
+          });
+        });
+      }
+
+      startLoop() {
+        setInterval(() => {
+          // CPS Addition (100ms ticks)
+          let cpsPerTick = this.getTotalCps() / 10;
+          this.addCookies(cpsPerTick);
+
+          // Auto Puncher Logic
+          if (this.autoPunchActive) this.punchCookie();
+
+          // Mana Regeneration
+          if (this.mana < this.maxMana) {
+            this.mana = Math.min(this.maxMana, this.mana + 0.033);
+          }
+
+          // Combo Decay
+          if (this.comboTimer > 0) {
+            this.comboTimer -= 0.1;
+          } else {
+            this.comboMult = Math.max(1.0, this.comboMult - 0.05);
+          }
+
+          // Buff Timers
+          for (let i = this.buffs.length - 1; i >= 0; i--) {
+            this.buffs[i].duration -= 0.1;
+            if (this.buffs[i].duration <= 0) this.buffs.splice(i, 1);
+          }
+
+          // Boss Countdown
+          if (this.bossActive) {
+            this.bossTimeLeft -= 0.1;
+            if (this.bossTimeLeft <= 0) {
+              this.bossActive = false;
+              this.dom.bossSection.classList.add('hidden');
+              this.dom.bossSection.classList.remove('flex');
+              showToast('❌ Boss escaped! Better luck next time.');
+            }
+          }
+
+          // Random Boss Spawn (1% chance every tick if not active)
+          if (!this.bossActive && Math.random() < 0.0008) {
+            this.spawnBoss();
+          }
+
+          // Random Golden Cookie Spawn
+          if (Math.random() < 0.0005) {
+            spawnGoldenCookie();
+          }
+
+          updateUI();
+        }, 100);
+
+        // Stock Market Fluctuation Interval (every 5 seconds)
+        setInterval(() => {
+          STOCKS.forEach(s => {
+            let change = (Math.random() - 0.48) * 0.15 * s.price;
+            s.price = Math.max(2, Math.round(s.price + change));
+            s.history.push(s.price);
+            if (s.history.length > 8) s.history.shift();
+          });
+          renderStocks();
+        }, 5000);
+      }
+
+      getSaveData() {
+        return {
+          cookies: this.cookies,
+          totalEarned: this.totalEarned,
+          totalClicks: this.totalClicks,
+          bossKills: this.bossKills,
+          goldenClicked: this.goldenClicked,
+          mana: this.mana,
+          sugarLumps: this.sugarLumps,
+          heavenlyFlour: this.heavenlyFlour,
+          activeSkinId: this.activeSkin.id,
+          buildings: BUILDINGS.map(b => ({ id: b.id, owned: b.owned, level: b.level })),
+          upgrades: UPGRADES.map(u => ({ id: u.id, purchased: u.purchased }))
+        };
+      }
+
+      saveGame() {
+        localStorage.setItem(SAVE_KEY, JSON.stringify(this.getSaveData()));
+      }
+
+      loadSave() {
+        let raw = localStorage.getItem(SAVE_KEY);
+        if (!raw) return;
+        try {
+          let data = JSON.parse(raw);
+          this.loadSaveData(data);
+        } catch(e) {}
+      }
+
+      loadSaveData(data) {
+        this.cookies = data.cookies || 0;
+        this.totalEarned = data.totalEarned || 0;
+        this.totalClicks = data.totalClicks || 0;
+        this.bossKills = data.bossKills || 0;
+        this.goldenClicked = data.goldenClicked || 0;
+        this.mana = data.mana || 100;
+        this.sugarLumps = data.sugarLumps || 0;
+        this.heavenlyFlour = data.heavenlyFlour || 0;
+
+        if (data.activeSkinId) {
+          let skin = SKINS_LIST.find(s => s.id === data.activeSkinId);
+          if (skin) applySkin(skin);
+        }
+
+        if (data.buildings) {
+          data.buildings.forEach(savedB => {
+            let b = BUILDINGS.find(x => x.id === savedB.id);
+            if (b) { b.owned = savedB.owned; b.level = savedB.level; }
+          });
+        }
+
+        if (data.upgrades) {
+          data.upgrades.forEach(savedU => {
+            let u = UPGRADES.find(x => x.id === savedU.id);
+            if (u && savedU.purchased) { u.purchased = true; u.apply(); }
+          });
+        }
+
+        updateUI();
+      }
+    }
+
+    const game = new CookiePuncherEngine();
+
+    function formatNum(n) {
+      if (n >= 1e12) return (n / 1e12).toFixed(2) + 'T';
+      if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+      if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+      if (n >= 1e3) return (n / 1e3).toFixed(2) + 'K';
+      return Math.floor(n).toLocaleString();
+    }
+
+    function updateUI() {
+      game.dom.cookieScore.textContent = `${formatNum(game.cookies)} Cookies`;
+      game.dom.cpsScore.textContent = `per second: ${formatNum(game.getTotalCps())}`;
+      game.dom.clickPowerScore.textContent = `Per click: ${formatNum(game.getClickPower())}`;
+
+      game.dom.manaCount.textContent = Math.floor(game.mana);
+      game.dom.maxManaCount.textContent = game.maxMana;
+      game.dom.sugarLumpCount.textContent = game.sugarLumps;
+      game.dom.heavenlyFlourCount.textContent = game.heavenlyFlour;
+
+      // Combo Ring Update
+      game.dom.comboMultiplierText.textContent = `${game.comboMult.toFixed(1)}x`;
+      let percent = (game.comboMult - 1.0) / 2.0;
+      game.dom.comboBar.style.width = `${percent * 100}%`;
+      let offset = 879 - (879 * percent);
+      game.dom.comboRingFill.style.strokeDashoffset = offset;
+
+      // Boss Section Updates
+      if (game.bossActive) {
+        game.dom.bossTimer.textContent = `${Math.ceil(game.bossTimeLeft)}s`;
+        let hpPct = (game.bossHp / game.bossMaxHp) * 100;
+        game.dom.bossHpBar.style.width = `${Math.max(0, hpPct)}%`;
+      }
+
+      // Buffs HUD
+      game.dom.buffContainer.innerHTML = '';
+      game.buffs.forEach(b => {
+        let div = document.createElement('div');
+        div.className = 'bg-amber-500/20 border border-amber-500/50 px-2.5 py-1 rounded-full text-xs font-bold text-amber-300 flex items-center gap-1.5';
+        div.innerHTML = `<span>⚡ ${b.name}</span><span class="font-mono-num text-white">${Math.ceil(b.duration)}s</span>`;
+        game.dom.buffContainer.appendChild(div);
+      });
+
+      renderBuildings();
+      renderUpgrades();
+      checkBadges();
+      renderStats();
+    }
+
+    function renderBuildings() {
+      game.dom.buildingsList.innerHTML = '';
+      BUILDINGS.forEach((b, idx) => {
+        let cost = Math.floor(b.baseCost * Math.pow(1.15, b.owned));
+        let canAfford = game.cookies >= cost;
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border transition flex items-center justify-between ${canAfford ? 'bg-slate-900/90 border-slate-700/80 hover:border-amber-500/50' : 'bg-slate-950/40 border-slate-900 opacity-60'}`;
+        div.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">${b.icon}</div>
+            <div>
+              <div class="font-bold text-sm text-slate-200 flex items-center gap-2">
+                ${b.name} <span class="text-xs text-amber-400 font-mono-num">x${b.owned}</span>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">Lvl ${b.level}</span>
+              </div>
+              <div class="text-xs text-slate-400 font-mono-num">+${formatNum(b.baseCps * Math.pow(1.15, b.level - 1))} CPS each</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="buyBuilding(${idx})" class="px-3.5 py-2 rounded-xl text-xs font-bold transition ${canAfford ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">
+              ${formatNum(cost)} 🍪
+            </button>
+            <button onclick="levelBuilding(${idx})" title="Upgrade with 1 Sugar Lump" class="px-2.5 py-2 rounded-xl text-xs font-bold bg-purple-900/60 hover:bg-purple-800 border border-purple-500/40 text-purple-300">
+              🪵 Lvl Up
+            </button>
+          </div>
+        `;
+        game.dom.buildingsList.appendChild(div);
+      });
+    }
+
+    function buyBuilding(idx) {
+      let b = BUILDINGS[idx];
+      let cost = Math.floor(b.baseCost * Math.pow(1.15, b.owned));
+      if (game.cookies >= cost) {
+        game.cookies -= cost;
+        b.owned++;
+        playSound('buy');
+        updateUI();
+      }
+    }
+
+    function levelBuilding(idx) {
+      let b = BUILDINGS[idx];
+      if (game.sugarLumps >= 1) {
+        game.sugarLumps--;
+        b.level++;
+        playSound('spell');
+        updateUI();
+        showToast(`Upgraded ${b.name} to Level ${b.level}!`);
+      } else {
+        showToast('Requires 1 Sugar Lump!');
+      }
+    }
+
+    function renderUpgrades() {
+      game.dom.upgradesGrid.innerHTML = '';
+      UPGRADES.forEach((u) => {
+        if (u.purchased) return;
+        let canAfford = game.cookies >= u.cost;
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border transition flex flex-col justify-between ${canAfford ? 'bg-slate-900/90 border-slate-700/80 hover:border-amber-500/50' : 'bg-slate-950/40 border-slate-900 opacity-60'}`;
+        div.innerHTML = `
+          <div>
+            <div class="font-bold text-sm text-slate-200 flex items-center gap-2">
+              <span>${u.icon}</span> ${u.name}
+            </div>
+            <p class="text-xs text-slate-400 mt-1">${u.desc}</p>
+          </div>
+          <button onclick="buyUpgrade('${u.id}')" class="mt-3 w-full py-2 rounded-xl text-xs font-bold transition ${canAfford ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">
+            Buy for ${formatNum(u.cost)} 🍪
+          </button>
+        `;
+        game.dom.upgradesGrid.appendChild(div);
+      });
+    }
+
+    function buyUpgrade(id) {
+      let u = UPGRADES.find(x => x.id === id);
+      if (u && !u.purchased && game.cookies >= u.cost) {
+        game.cookies -= u.cost;
+        u.purchased = true;
+        u.apply();
+        playSound('buy');
+        updateUI();
+        showToast(`Purchased ${u.name}!`);
+      }
+    }
+
+    function renderSkins() {
+      game.dom.skinsSelectorGrid.innerHTML = '';
+      SKINS_LIST.forEach(s => {
+        let isCurrent = game.activeSkin.id === s.id;
+        let btn = document.createElement('button');
+        btn.className = `p-3 rounded-2xl border text-center transition font-semibold text-xs ${isCurrent ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-lg' : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-700'}`;
+        btn.textContent = s.name;
+        btn.onclick = () => applySkin(s);
+        game.dom.skinsSelectorGrid.appendChild(btn);
+      });
+    }
+
+    function applySkin(skin) {
+      document.body.classList.remove(...SKINS_LIST.map(x => x.class).filter(c => c));
+      if (skin.class) document.body.classList.add(skin.class);
+      game.activeSkin = skin;
+      renderSkins();
+      showToast(`Skin set to ${skin.name}`);
+    }
+
+    function renderSpells() {
+      game.dom.spellsGrid.innerHTML = '';
+      SPELLS.forEach(s => {
+        let canCast = game.mana >= s.manaCost;
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border bg-slate-900/80 border-slate-800 flex flex-col justify-between`;
+        div.innerHTML = `
+          <div>
+            <div class="font-bold text-sm text-cyan-300 flex items-center justify-between">
+              <span>${s.icon} ${s.name}</span>
+              <span class="text-xs text-cyan-400 font-mono-num">${s.manaCost} Mana</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">${s.desc}</p>
+          </div>
+          <button onclick="castSpell('${s.id}')" class="mt-3 w-full py-2 rounded-xl text-xs font-bold transition ${canCast ? 'bg-cyan-500 hover:bg-cyan-400 text-slate-950' : 'bg-slate-800 text-slate-500 cursor-not-allowed'}">
+            Cast Spell
+          </button>
+        `;
+        game.dom.spellsGrid.appendChild(div);
+      });
+    }
+
+    function castSpell(id) {
+      let s = SPELLS.find(x => x.id === id);
+      if (s && game.mana >= s.manaCost) {
+        game.mana -= s.manaCost;
+        s.cast();
+        playSound('spell');
+        updateUI();
+      } else {
+        showToast('Not enough Mana!');
+      }
+    }
+
+    function renderPets() {
+      game.dom.petsList.innerHTML = '';
+      PETS.forEach(p => {
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border bg-slate-900/80 border-slate-800 flex items-center justify-between`;
+        div.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">${p.icon}</div>
+            <div>
+              <div class="font-bold text-sm text-slate-200">${p.name} <span class="text-xs text-amber-400">Lvl ${p.lvl}</span></div>
+              <div class="text-xs text-slate-400">${p.desc}</div>
+            </div>
+          </div>
+          <button onclick="buyPet('${p.id}')" class="px-3 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950">
+            ${p.lvl === 0 ? `Hatch (${formatNum(p.cost)})` : 'Lvl Up'}
+          </button>
+        `;
+        game.dom.petsList.appendChild(div);
+      });
+    }
+
+    function buyPet(id) {
+      let p = PETS.find(x => x.id === id);
+      if (p && game.cookies >= p.cost) {
+        game.cookies -= p.cost;
+        p.lvl++;
+        p.equipped = true;
+        p.cost *= 2;
+        playSound('buy');
+        updateUI();
+        renderEquippedPets();
+        showToast(`Hatched / Upgraded ${p.name}!`);
+      }
+    }
+
+    function renderEquippedPets() {
+      game.dom.equippedPetsContainer.innerHTML = '';
+      PETS.filter(p => p.equipped).forEach((p, i) => {
+        let div = document.createElement('div');
+        div.className = 'equipped-pet-badge';
+        div.style.top = `${20 + i * 50}px`;
+        div.style.left = `${10 + i * 40}px`;
+        div.innerHTML = `<span class="equipped-pet-icon">${p.icon}</span><span class="equipped-pet-lvl">Lvl ${p.lvl}</span>`;
+        game.dom.equippedPetsContainer.appendChild(div);
+      });
+    }
+
+    function renderGarden() {
+      let grid = document.getElementById('gardenPlotGrid');
+      grid.innerHTML = '';
+      game.garden.forEach((tile, idx) => {
+        let div = document.createElement('div');
+        div.className = 'garden-tile';
+        div.onclick = () => plantGardenTile(idx);
+        if (tile) {
+          div.innerHTML = `<span class="text-2xl">${tile.icon}</span><span class="text-[9px] text-emerald-400 font-bold mt-1">${tile.name}</span>`;
+        } else {
+          div.innerHTML = `<span class="text-xs text-slate-600 font-bold">+ Plant</span>`;
+        }
+        grid.appendChild(div);
+      });
+    }
+
+    function plantGardenTile(idx) {
+      if (!game.garden[idx]) {
+        game.garden[idx] = { name: 'Crop', icon: '🌾' };
+        renderGarden();
+        showToast('Planted Seed in Garden!');
+      } else {
+        game.garden[idx] = null;
+        game.ingredients.cocoa += 2;
+        renderGarden();
+        showToast('Harvested Crop! +2 Cocoa Loot');
+      }
+    }
+
+    function renderStocks() {
+      game.dom.stockMarketList.innerHTML = '';
+      STOCKS.forEach(s => {
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border bg-slate-900/80 border-slate-800 flex items-center justify-between`;
+        div.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">${s.icon}</div>
+            <div>
+              <div class="font-bold text-sm text-slate-200">${s.name}</div>
+              <div class="text-xs text-emerald-400 font-mono-num">$${s.price} / share</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="buyStock('${s.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500 hover:bg-emerald-400 text-slate-950">Buy</button>
+            <button onclick="sellStock('${s.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-300">Sell (${s.owned})</button>
+          </div>
+        `;
+        game.dom.stockMarketList.appendChild(div);
+      });
+    }
+
+    function buyStock(id) {
+      let s = STOCKS.find(x => x.id === id);
+      if (s && game.cookies >= s.price) {
+        game.cookies -= s.price;
+        s.owned++;
+        updateUI();
+      }
+    }
+    function sellStock(id) {
+      let s = STOCKS.find(x => x.id === id);
+      if (s && s.owned > 0) {
+        s.owned--;
+        game.cookies += s.price;
+        updateUI();
+      }
+    }
+
+    function renderRecipes() {
+      game.dom.recipesList.innerHTML = '';
+      RECIPES.forEach(r => {
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border bg-slate-900/80 border-slate-800 flex items-center justify-between`;
+        div.innerHTML = `
+          <div>
+            <div class="font-bold text-sm text-purple-300">${r.icon} ${r.name}</div>
+            <div class="text-xs text-slate-400">${r.desc}</div>
+          </div>
+          <button onclick="craftRecipe('${r.id}')" class="px-3 py-2 rounded-xl text-xs font-bold bg-purple-500 hover:bg-purple-400 text-slate-950">Craft Potion</button>
+        `;
+        game.dom.recipesList.appendChild(div);
+      });
+    }
+
+    function craftRecipe(id) {
+      let r = RECIPES.find(x => x.id === id);
+      if (r) {
+        r.craft();
+        playSound('spell');
+      }
+    }
+
+    function renderGloves() {
+      game.dom.glovesGrid.innerHTML = '';
+      GLOVES.forEach(g => {
+        let isEquipped = game.equippedGlove.id === g.id;
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border text-center flex flex-col items-center justify-between ${isEquipped ? 'bg-amber-500/20 border-amber-500' : 'bg-slate-900/80 border-slate-800'}`;
+        div.innerHTML = `
+          <div class="text-3xl">${g.icon}</div>
+          <div class="font-bold text-xs text-slate-200 mt-2">${g.name}</div>
+          <div class="text-[10px] text-slate-400 mt-1">${g.clickMult}x Click Power</div>
+          <button onclick="equipGlove('${g.id}')" class="mt-3 w-full py-1.5 rounded-xl text-xs font-bold ${isEquipped ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-300'}">
+            ${isEquipped ? 'Equipped' : 'Equip'}
+          </button>
+        `;
+        game.dom.glovesGrid.appendChild(div);
+      });
+    }
+
+    function equipGlove(id) {
+      let g = GLOVES.find(x => x.id === id);
+      if (g) {
+        game.equippedGlove = g;
+        game.dom.gloveOverlay.textContent = g.icon;
+        renderGloves();
+        updateUI();
+        showToast(`Equipped ${g.name}!`);
+      }
+    }
+
+    function checkBadges() {
+      BADGES.forEach(b => {
+        if (!b.unlocked && b.check()) {
+          b.unlocked = true;
+          showToast(`🏆 Badge Unlocked: ${b.name}!`);
+        }
+      });
+      renderBadges();
+    }
+
+    function renderBadges() {
+      game.dom.badgesGrid.innerHTML = '';
+      BADGES.forEach(b => {
+        let div = document.createElement('div');
+        div.className = `p-3 rounded-2xl border flex items-center gap-3 ${b.unlocked ? 'bg-amber-500/20 border-amber-500/50' : 'bg-slate-950/40 border-slate-900 opacity-50'}`;
+        div.innerHTML = `
+          <div class="text-3xl">${b.unlocked ? '🏆' : '🔒'}</div>
+          <div>
+            <div class="font-bold text-sm text-slate-200">${b.name}</div>
+            <div class="text-xs text-slate-400">${b.desc}</div>
+          </div>
+        `;
+        game.dom.badgesGrid.appendChild(div);
+      });
+    }
+
+    function renderStats() {
+      document.getElementById('statTotalEarned').textContent = formatNum(game.totalEarned);
+      document.getElementById('statTotalClicks').textContent = formatNum(game.totalClicks);
+      document.getElementById('statBossKills').textContent = formatNum(game.bossKills);
+      document.getElementById('statGoldenClicked').textContent = formatNum(game.goldenClicked);
+    }
+
+    function spawnGoldenCookie() {
+      let golden = document.createElement('div');
+      golden.className = 'golden-cookie-spawn';
+      golden.textContent = '🌟';
+      golden.style.top = `${Math.random() * 70 + 15}%`;
+      golden.style.left = `${Math.random() * 80 + 10}%`;
+      document.body.appendChild(golden);
+
+      golden.onclick = () => {
+        game.goldenClicked++;
+        let bonus = Math.max(777, game.getTotalCps() * 77);
+        game.addCookies(bonus);
+        playSound('spell');
+        golden.remove();
+        showToast(`🌟 Golden Cookie Clicked! +${formatNum(bonus)} Cookies!`);
+      };
+
+      setTimeout(() => { if (golden.parentNode) golden.remove(); }, 8000);
+    }
+
+    function showToast(msg) {
+      let toast = document.createElement('div');
+      toast.className = 'bg-slate-900 border border-slate-700 text-slate-100 text-xs font-bold px-4 py-3 rounded-2xl shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0';
+      toast.textContent = msg;
+      document.getElementById('toastContainer').appendChild(toast);
+      setTimeout(() => { toast.classList.remove('translate-y-2', 'opacity-0'); }, 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function spawnFloatingText(text, x, y, isCrit = false) {
+      let div = document.createElement('div');
+      div.className = `particle-text ${isCrit ? 'crit-text' : 'text-amber-300'}`;
+      div.style.left = `${x}px`;
+      div.style.top = `${y}px`;
+      div.textContent = text;
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 850);
+    }
+
+    function showModal(title, bodyText, onConfirm) {
+      const modal = document.getElementById('customModal');
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalBody').textContent = bodyText;
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+
+      const cancelBtn = document.getElementById('modalCancelBtn');
+      const confirmBtn = document.getElementById('modalConfirmBtn');
+
+      const close = () => modal.classList.add('opacity-0', 'pointer-events-none');
+      cancelBtn.onclick = close;
+      confirmBtn.onclick = () => { close(); if (onConfirm) onConfirm(); };
+    }
+
+    // Initialize Subsystem Renders
+    renderSkins();
+    renderSpells();
+    renderPets();
+    renderGarden();
+    renderStocks();
+    renderRecipes();
+    renderGloves();
+    updateUI();
+  </script>
+</body>
+</html>
